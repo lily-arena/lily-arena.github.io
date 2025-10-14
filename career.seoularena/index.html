@@ -6,6 +6,26 @@
   <title>SeoulArena Career</title>
   <link rel="icon" href="images/SeoulArena.png">
   <link href="css/styles.css" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore-compat.js"></script> 
+  <script>
+  // 🔥 여기에 여러분의 Firebase 프로젝트 설정을 입력해야 합니다.
+  // [관리자 페이지를 설정할 때 사용한 'firebaseConfig' 객체]를 사용하세요.
+  const firebaseConfig = {
+    apiKey: "AIzaSyDDMRJ9xVU79BPN6gF0KsEf4N1sQJeuxWw",
+  authDomain: "gen-lang-client-0460432266.firebaseapp.com",
+  databaseURL: "https://gen-lang-client-0460432266-default-rtdb.firebaseio.com",
+  projectId: "gen-lang-client-0460432266",
+  storageBucket: "gen-lang-client-0460432266.firebasestorage.app",
+  messagingSenderId: "908504758145",
+  appId: "1:908504758145:web:b2666ac5fd7cef2bbf1a80"
+  };
+  
+  // Firebase 초기화
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+  // 또는 Realtime Database: const db = firebase.database();
+</script>
 </head>
 <body>
 
@@ -211,7 +231,7 @@
       <section class="news-feature">
         <h3 class="feature-title">이번 주 공사 현황</h3>
         <figure class="news-feature-figure">
-          <img src="images/2025-09-23-12-00-51.jpg" alt="이번 주 공사 현장">
+          <img id="construction-image" src="images/2025-09-23-12-00-51.jpg" alt="이번 주 공사 현장">
         </figure>
       </section>
 
@@ -220,77 +240,7 @@
         <button class="news-nav prev" aria-label="이전 뉴스로 이동" type="button">‹</button>
 
         <div class="news-track">
-          <article class="news-card">
-            <a class="news-card-image" href="https://www.hankyung.com/article/2024070268466" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1" style="background-image:url('images/news1-thumbnail.png');"></a>
-            <div class="news-card-body">
-              <h3 class="news-card-title"><a href="https://www.hankyung.com/article/2024070268466" target="_blank" rel="noopener">서울 최초 K팝 전문공연장 '서울아레나' 착공…"연 250만명 유치"</a></h3>
-              <time class="news-card-date" datetime="2024-07-02">2024.07.02</time>
-            </div>
-          </article>
-
-          <article class="news-card">
-            <a class="news-card-image" href="https://www.newsprime.co.kr/news/article/?no=702521" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1" style="background-image:url('images/news2-thumbnail.jpg');"></a>
-            <div class="news-card-body">
-              <h3 class="news-card-title"><a href="https://www.newsprime.co.kr/news/article/?no=702521" target="_blank" rel="noopener">서울 동북권 'K팝 글로벌 메카로' 서울아레나 본격화</a></h3>
-              <time class="news-card-date" datetime="2025-09-01">2025.09.01</time>
-            </div>
-          </article>
-
-          <article class="news-card">
-            <a class="news-card-image" href="https://www.yna.co.kr/view/AKR20250901071700004" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1" style="background-image:url('images/news3-thumbnail.jpg');"></a>
-            <div class="news-card-body">
-              <h3 class="news-card-title"><a href="https://www.yna.co.kr/view/AKR20250901071700004" target="_blank" rel="noopener">오세훈, 서울아레나 현장 점검…"'월클' K-팝 공연 성지 조성"</a></h3>
-              <time class="news-card-date" datetime="2025-09-01">2025.09.01</time>
-            </div>
-          </article>
-
-          <article class="news-card">
-            <a class="news-card-image" href="https://www.hankyung.com/article/2024070268466" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1" style="background-image:url('images/news1-thumbnail.png');"></a>
-            <div class="news-card-body">
-              <h3 class="news-card-title"><a href="https://www.hankyung.com/article/2024070268466" target="_blank" rel="noopener">서울 최초 K팝 전문공연장 '서울아레나' 착공…"연 250만명 유치"</a></h3>
-              <time class="news-card-date" datetime="2024-07-02">2024.07.02</time>
-            </div>
-          </article>
-
-          <article class="news-card">
-            <a class="news-card-image" href="https://www.newsprime.co.kr/news/article/?no=702521" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1" style="background-image:url('images/news2-thumbnail.jpg');"></a>
-            <div class="news-card-body">
-              <h3 class="news-card-title"><a href="https://www.newsprime.co.kr/news/article/?no=702521" target="_blank" rel="noopener">서울 동북권 'K팝 글로벌 메카로' 서울아레나 본격화</a></h3>
-              <time class="news-card-date" datetime="2025-09-01">2025.09.01</time>
-            </div>
-          </article>
-
-          <article class="news-card">
-            <a class="news-card-image" href="https://www.yna.co.kr/view/AKR20250901071700004" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1" style="background-image:url('images/news3-thumbnail.jpg');"></a>
-            <div class="news-card-body">
-              <h3 class="news-card-title"><a href="https://www.yna.co.kr/view/AKR20250901071700004" target="_blank" rel="noopener">오세훈, 서울아레나 현장 점검…"'월클' K-팝 공연 성지 조성"</a></h3>
-              <time class="news-card-date" datetime="2025-09-01">2025.09.01</time>
-            </div>
-          </article>
-
-          <article class="news-card">
-            <a class="news-card-image" href="https://www.hankyung.com/article/2024070268466" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1" style="background-image:url('images/news1-thumbnail.png');"></a>
-            <div class="news-card-body">
-              <h3 class="news-card-title"><a href="https://www.hankyung.com/article/2024070268466" target="_blank" rel="noopener">서울 최초 K팝 전문공연장 '서울아레나' 착공…"연 250만명 유치"</a></h3>
-              <time class="news-card-date" datetime="2024-07-02">2024.07.02</time>
-            </div>
-          </article>
-
-          <article class="news-card">
-            <a class="news-card-image" href="https://www.newsprime.co.kr/news/article/?no=702521" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1" style="background-image:url('images/news2-thumbnail.jpg');"></a>
-            <div class="news-card-body">
-              <h3 class="news-card-title"><a href="https://www.newsprime.co.kr/news/article/?no=702521" target="_blank" rel="noopener">서울 동북권 'K팝 글로벌 메카로' 서울아레나 본격화</a></h3>
-              <time class="news-card-date" datetime="2025-09-01">2025.09.01</time>
-            </div>
-          </article>
-
-          <article class="news-card">
-            <a class="news-card-image" href="https://www.yna.co.kr/view/AKR20250901071700004" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1" style="background-image:url('images/news3-thumbnail.jpg');"></a>
-            <div class="news-card-body">
-              <h3 class="news-card-title"><a href="https://www.yna.co.kr/view/AKR20250901071700004" target="_blank" rel="noopener">오세훈, 서울아레나 현장 점검…"'월클' K-팝 공연 성지 조성"</a></h3>
-              <time class="news-card-date" datetime="2025-09-01">2025.09.01</time>
-            </div>
-          </article>
+          
         </div>
 
         <button class="news-nav next" aria-label="다음 뉴스로 이동" type="button">›</button>
@@ -328,6 +278,66 @@
     el.classList.add("fade-in");
     setInterval(swap, cycle);
   })();
+
+  // News: 공사 현황 이미지 업데이트
+async function loadConstructionImage() {
+  try {
+    const doc = await db.collection("settings").doc("current").get();
+    if (doc.exists && doc.data().construction_image_url) {
+      document.getElementById('construction-image').src = doc.data().construction_image_url;
+    }
+  } catch (error) {
+    console.error("Error loading construction image:", error);
+  }
+}
+loadConstructionImage();
+
+// NEWS: 뉴스 기사 업데이트
+async function loadNewsArticles() {
+  const track = document.querySelector('.news-track');
+  if (!track) return;
+  
+  try {
+    // Firestore에서 기사를 날짜 내림차순으로 9개 가져오기
+    const snapshot = await db.collection("articles")
+                             .orderBy("date", "desc") // 날짜 필드가 존재해야 함
+                             .limit(9)
+                             .get();
+
+    // 동적으로 HTML 생성
+    snapshot.forEach(doc => {
+      const article = doc.data();
+      
+      const cardHTML = `
+        <article class="news-card">
+          <a class="news-card-image" 
+             href="${article.url}" 
+             target="_blank" 
+             rel="noopener" 
+             aria-hidden="true" 
+             tabindex="-1" 
+             style="background-image:url('${article.imageUrl}');">
+          </a>
+          <div class="news-card-body">
+            <h3 class="news-card-title">
+              <a href="${article.url}" target="_blank" rel="noopener">${article.title}</a>
+            </h3>
+            <time class="news-card-date" datetime="${article.date}">${article.date.replace(/-/g, '.')}</time>
+          </div>
+        </article>
+      `;
+      // 기존 하드코딩된 요소를 대체합니다.
+      track.insertAdjacentHTML('beforeend', cardHTML);
+    });
+
+    // 참고: 기존에 HTML에 하드코딩된 캐러셀 로직(updateArrows() 등)을 수동으로 호출하여 UI를 초기화해야 할 수 있습니다.
+
+  } catch (error) {
+    console.error("Error loading news articles:", error);
+    // 오류 발생 시 정적 데이터(articlesDb.json 등)를 로드하는 대체 로직을 구현할 수 있습니다.
+  }
+}
+loadNewsArticles();
 
   // News: carousel nav & disabled state
   (function(){
