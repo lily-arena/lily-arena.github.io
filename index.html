@@ -6,25 +6,25 @@
   <title>SeoulArena Career</title>
   <link rel="icon" href="images/SeoulArena.png">
   <link href="css/styles.css" rel="stylesheet">
-  <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore-compat.js"></script> 
+  
+  <!-- Firebase SDK 로드: Realtime Database -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script> 
+  
   <script>
-  // 🔥 여기에 여러분의 Firebase 프로젝트 설정을 입력해야 합니다.
-  // [관리자 페이지를 설정할 때 사용한 'firebaseConfig' 객체]를 사용하세요.
   const firebaseConfig = {
     apiKey: "AIzaSyDDMRJ9xVU79BPN6gF0KsEf4N1sQJeuxWw",
-  authDomain: "gen-lang-client-0460432266.firebaseapp.com",
-  databaseURL: "https://gen-lang-client-0460432266-default-rtdb.firebaseio.com",
-  projectId: "gen-lang-client-0460432266",
-  storageBucket: "gen-lang-client-0460432266.firebasestorage.app",
-  messagingSenderId: "908504758145",
-  appId: "1:908504758145:web:b2666ac5fd7cef2bbf1a80"
+    authDomain: "gen-lang-client-0460432266.firebaseapp.com",
+    databaseURL: "https://gen-lang-client-0460432266-default-rtdb.firebaseio.com",
+    projectId: "gen-lang-client-0460432266",
+    storageBucket: "gen-lang-client-0460432266.firebasestorage.app",
+    messagingSenderId: "908504758145",
+    appId: "1:908504758145:web:b2666ac5fd7cef2bbf1a80"
   };
   
-  // Firebase 초기화
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-  // 또는 Realtime Database: const db = firebase.database();
+  // Firebase 초기화 및 Realtime Database 서비스 가져오기
+  const app = firebase.initializeApp(firebaseConfig);
+  const database = app.database();
 </script>
 </head>
 <body>
@@ -239,8 +239,9 @@
       <div class="news-carousel" id="newsScroller" aria-label="뉴스 카드 목록">
         <button class="news-nav prev" aria-label="이전 뉴스로 이동" type="button">‹</button>
 
-        <div class="news-track">
-          
+        <!-- 뉴스 카드를 동적으로 채울 트랙에 ID를 부여합니다. -->
+        <div id="newsTrack" class="news-track"> 
+          <!-- 이 안에 뉴스 카드가 삽입됩니다. -->
         </div>
 
         <button class="news-nav next" aria-label="다음 뉴스로 이동" type="button">›</button>
@@ -279,65 +280,88 @@
     setInterval(swap, cycle);
   })();
 
-  // News: 공사 현황 이미지 업데이트
-async function loadConstructionImage() {
-  try {
-    const doc = await db.collection("settings").doc("current").get();
-    if (doc.exists && doc.data().construction_image_url) {
-      document.getElementById('construction-image').src = doc.data().construction_image_url;
-    }
-  } catch (error) {
-    console.error("Error loading construction image:", error);
-  }
-}
-loadConstructionImage();
+  // ------------------------------------------------------------------
+  // 🔥 FIREBASE 데이터 로직 (Realtime Database에서 읽기)
+  // ------------------------------------------------------------------
+  document.addEventListener('DOMContentLoaded', () => {
+    
+    // ----------------------------------------------------
+    // A. 공사 현황 이미지 실시간 구독
+    // ----------------------------------------------------
+    const constructionImageRef = database.ref('settings/constructionImage');
+    const imageElement = document.getElementById('construction-image');
 
-// NEWS: 뉴스 기사 업데이트
-async function loadNewsArticles() {
-  const track = document.querySelector('.news-track');
-  if (!track) return;
-  
-  try {
-    // Firestore에서 기사를 날짜 내림차순으로 9개 가져오기
-    const snapshot = await db.collection("articles")
-                             .orderBy("date", "desc") // 날짜 필드가 존재해야 함
-                             .limit(9)
-                             .get();
-
-    // 동적으로 HTML 생성
-    snapshot.forEach(doc => {
-      const article = doc.data();
-      
-      const cardHTML = `
-        <article class="news-card">
-          <a class="news-card-image" 
-             href="${article.url}" 
-             target="_blank" 
-             rel="noopener" 
-             aria-hidden="true" 
-             tabindex="-1" 
-             style="background-image:url('${article.imageUrl}');">
-          </a>
-          <div class="news-card-body">
-            <h3 class="news-card-title">
-              <a href="${article.url}" target="_blank" rel="noopener">${article.title}</a>
-            </h3>
-            <time class="news-card-date" datetime="${article.date}">${article.date.replace(/-/g, '.')}</time>
-          </div>
-        </article>
-      `;
-      // 기존 하드코딩된 요소를 대체합니다.
-      track.insertAdjacentHTML('beforeend', cardHTML);
+    constructionImageRef.on('value', (snapshot) => {
+        if (snapshot.exists() && imageElement) {
+            const imageUrl = snapshot.val();
+            // 이미지 src 속성을 업데이트합니다.
+            imageElement.src = imageUrl; 
+        }
+    }, (error) => {
+        console.error("Error reading construction image:", error);
     });
 
-    // 참고: 기존에 HTML에 하드코딩된 캐러셀 로직(updateArrows() 등)을 수동으로 호출하여 UI를 초기화해야 할 수 있습니다.
+    // ----------------------------------------------------
+    // B. 뉴스 기사 실시간 구독 및 HTML 렌더링
+    // ----------------------------------------------------
+    const articlesRef = database.ref('articles');
+    const newsTrack = document.getElementById('newsTrack'); // 🔥 ID를 사용하도록 수정
 
-  } catch (error) {
-    console.error("Error loading news articles:", error);
-    // 오류 발생 시 정적 데이터(articlesDb.json 등)를 로드하는 대체 로직을 구현할 수 있습니다.
-  }
-}
-loadNewsArticles();
+    articlesRef.on('value', (snapshot) => {
+        if (snapshot.exists() && newsTrack) {
+            const articlesMap = snapshot.val();
+            // 객체를 배열로 변환하고 ID 추가
+            const articlesArray = Object.keys(articlesMap).map(key => ({
+                id: key, 
+                ...articlesMap[key]
+            }));
+
+            // 날짜(date 필드)를 기준으로 최신순으로 정렬
+            articlesArray.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+            // 뉴스 트랙 비우기
+            newsTrack.innerHTML = ''; 
+
+            // 새 기사 HTML 생성 및 삽입
+            articlesArray.forEach(article => {
+                // date가 ISO 8601 문자열이라고 가정하고 YYYY.MM.DD 형식으로 변환
+                const dateText = article.date ? article.date.substring(0, 10).replace(/-/g, '.') : '';
+
+                const cardHtml = `
+                    <article class="news-card">
+                        <a href="${article.url}" target="_blank" rel="noopener noreferrer" aria-label="${article.title} 기사 보기">
+                            <div class="news-card-image" style="background-image: url('${article.imageUrl}');"></div>
+                        </a>
+                        <div class="news-card-body">
+                            <h3 class="news-card-title">
+                                <a href="${article.url}" target="_blank" rel="noopener noreferrer">${article.title}</a>
+                            </h3>
+                            <time class="news-card-date" datetime="${article.date}">${dateText}</time>
+                        </div>
+                    </article>
+                `;
+                newsTrack.insertAdjacentHTML('beforeend', cardHtml);
+            });
+            
+            // 뉴스 데이터가 로드된 후 슬라이더 화살표 상태를 업데이트합니다.
+            if (window.updateArrows) {
+                 window.updateArrows();
+            }
+        } else if (newsTrack) {
+             // 데이터가 없으면 트랙을 비웁니다.
+            newsTrack.innerHTML = '<p style="padding: 16px; color:#999; text-align:center;">현재 등록된 보도자료가 없습니다.</p>';
+            if (window.updateArrows) {
+                 window.updateArrows();
+            }
+        }
+    }, (error) => {
+        console.error("Error reading news articles:", error);
+        if (newsTrack) newsTrack.innerHTML = '<p style="padding: 16px; color:red; text-align:center;">뉴스 기사를 불러오지 못했습니다. (Firebase 규칙 확인 필요)</p>';
+    });
+    
+  });
+  // ------------------------------------------------------------------
+
 
   // News: carousel nav & disabled state
   (function(){
@@ -366,10 +390,11 @@ loadNewsArticles();
       btn.setAttribute('aria-disabled', String(on));
       btn.tabIndex = on ? -1 : 0;
     }
-    function updateArrows(){
+    
+    window.updateArrows = function() {
       setDisabled(prev, atStart());
       setDisabled(next, atEnd());
-    }
+    };
 
     prev.addEventListener('click', () => {
       if (prev.classList.contains('is-disabled')) return;
@@ -380,10 +405,11 @@ loadNewsArticles();
       track.scrollBy({ left:  getStep(), behavior: 'smooth' });
     });
 
-    track.addEventListener('scroll', updateArrows, { passive:true });
-    window.addEventListener('resize', updateArrows);
-    prev.classList.add('is-disabled'); // 첫 화면: 왼쪽 비활성
-    updateArrows();
+    track.addEventListener('scroll', window.updateArrows, { passive:true });
+    window.addEventListener('resize', window.updateArrows);
+    
+    setDisabled(prev, true);
+    setDisabled(next, true); 
   })();
 
   // LIFE: tabs
