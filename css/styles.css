@@ -43,7 +43,7 @@ a{ color:inherit; text-decoration:none; }
 h1,h2,h3,h4{ font-weight:700; }
 
 /* ============ Layout ============ */
-.container{ width:100%; max-width:1200px; margin:0 auto; padding:0 20px; }
+.container{ width:100%; max-width:980px; margin:0 auto; padding:0 20px; }
 @media (min-width:768px){ .container{ padding:0 32px; } }
 @media (min-width:1200px){ .container{ padding:0 48px; } }
 
@@ -52,7 +52,7 @@ h1,h2,h3,h4{ font-weight:700; }
 .section-title{ font-size:var(--h2); line-height:1.2; margin:0; display:inline-block; }
 
 .panel{ padding:0; border:0; background:transparent; box-shadow:none; }
-.feature-title{ text-align:left; font-size:clamp(1.5rem, 2.4vw, 2rem); margin:0 0 24px 0; font-weight:800; }
+.feature-title{ text-align:left; font-size:clamp(1rem, 2vw, 1rem); margin:0 0 12px 0; font-weight:800; }
 
 /* ============ Intro ============ */
 .intro{
@@ -102,7 +102,7 @@ br.mobile-only { display:none; }
 
 .mvc-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; width:100%; }
 .mvc-box{ display:flex; align-items:flex-end; justify-content:flex-start; border-radius:16px; padding:50px; box-sizing:border-box; }
-.mvc-grid--square .mvc-box{ aspect-ratio:3/2; }
+.mvc-grid--square .mvc-box{ aspect-ratio:5/4; }
 .mvc-grid--core .mvc-box{ margin-top:16px; aspect-ratio:auto; }
 
 .mvc-title span{ font-weight:800; font-size:clamp(1.5rem, 2.4vw, 2rem); line-height:1; }
@@ -120,7 +120,7 @@ br.mobile-only { display:none; }
 .mvc-content .core-list li{ padding:14px 0; border-bottom:1px solid var(--line); }
 .mvc-content .core-list li:last-child{ border-bottom:0; }
 .mvc-content .core-copy h4{ margin:0 0 6px 0; font-size:clamp(1.05rem, 1.6vw, 1.2rem); font-weight:800; color:#fff; }
-.mvc-content .core-copy p{ margin:0; color:#fff; line-height:1.8; font-size:clamp(1rem, 1.2vw, 1.075rem); }
+.mvc-content .core-copy p{ margin:0; color:#fff; line-height:1.75; font-size:clamp(0.7rem, 1vw, 1rem); }
 
 .mvc-inline{ display:none; }
 
@@ -205,7 +205,7 @@ br.mobile-only { display:none; }
 }
 
 /* ============ Footer ============ */
-.footer{ margin-top:40px; border-top:1px solid var(--line); padding:26px 0; background:rgba(255,255,255,.01); }
+.footer{ margin-top:40px; padding:26px 0; background:rgba(255,255,255,.01); }
 .footer-inner{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
 .brand-mini{ font-weight:700; letter-spacing:.2px; opacity:.85; }
 .companyinfo{ text-align:right; }
