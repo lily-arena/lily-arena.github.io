@@ -329,12 +329,12 @@
 
                 const cardHtml = `
                     <article class="news-card">
-                        <a href="${article.url}" target="_blank" rel="noopener noreferrer" aria-label="${article.title} 기사 보기">
+                        <a href="${article.link}" target="_blank" rel="noopener noreferrer" aria-label="${article.title} 기사 보기">
                             <div class="news-card-image" style="background-image: url('${article.imageUrl}');"></div>
                         </a>
                         <div class="news-card-body">
                             <h3 class="news-card-title">
-                                <a href="${article.url}" target="_blank" rel="noopener noreferrer">${article.title}</a>
+                                <a href="${article.link}" target="_blank" rel="noopener noreferrer">${article.title}</a>
                             </h3>
                             <time class="news-card-date" datetime="${article.date}">${dateText}</time>
                         </div>
