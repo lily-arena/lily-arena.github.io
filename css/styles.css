@@ -144,6 +144,8 @@ br.mobile-only { display:none; }
   display: flex;
   align-items: stretch;
   justify-content: center;
+  border-radius: 16px;
+  overflow: hidden;
 }
 .mvc-img .mvc-inner { padding: 0; }
 .mvc-img img {
@@ -162,9 +164,13 @@ br.mobile-only { display:none; }
   .mvc-box {
     aspect-ratio: auto;
     min-height: 260px;
+    border-radius: 16px;
+    overflow: hidden;
   }
   .mvc-img {
     aspect-ratio: 2 / 1;
+    border-radius: 16px;
+    overflow: hidden;
   }
   .mvc-inner {
     padding: 24px;
