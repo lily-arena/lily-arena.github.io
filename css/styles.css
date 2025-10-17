@@ -375,3 +375,36 @@ br.mobile-only{ display:none; } @media (max-width:640px){ br.mobile-only{ displa
 /* ========================================================================== */
 .fade-in{ opacity:1; transition:opacity .6s ease; }
 .fade-out{ opacity:0; transition:opacity .6s ease; }
+
+/* ========================================================================== */
+/* SCROLL REVEAL                                                              */
+/* ========================================================================== */
+:root{
+  --reveal-distance: 24px;   /* 기본 이동 거리 */
+  --reveal-duration: .7s;    /* 기본 재생 시간 */
+  --reveal-ease: cubic-bezier(.2,.7,.2,1);
+}
+
+.reveal{
+  opacity: 0;
+  transform: translateY(var(--reveal-distance));
+  transition:
+    transform var(--reveal-duration) var(--reveal-ease),
+    opacity   var(--reveal-duration) var(--reveal-ease);
+  will-change: transform, opacity;
+}
+
+.reveal.is-visible{
+  opacity: 1;
+  transform: none;
+}
+
+.reveal[data-reveal-delay]{ transition-delay: calc(var(--delay, 0ms)); }
+
+@media (prefers-reduced-motion: reduce){
+  .reveal{
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

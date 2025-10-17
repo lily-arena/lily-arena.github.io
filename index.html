@@ -473,6 +473,62 @@
       track.innerHTML = track.innerHTML + track.innerHTML;
     });
   })();
+
+  // Reveal
+  (function(){
+  const EXCLUDE = new Set(['HEADER','FOOTER']);
+  const rootMargin = '0px 0px -10% 0px';
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const el = entry.target;
+      if (entry.isIntersecting){
+
+        const up = el.getAttribute('data-reveal-up');
+        if (up) el.style.setProperty('--reveal-distance', `${parseInt(up,10)}px`);
+        const delay = el.getAttribute('data-reveal-delay');
+        if (delay) el.style.setProperty('--delay', `${parseInt(delay,10)}ms`);
+
+        el.classList.add('is-visible');
+
+        const once = el.getAttribute('data-reveal-once');
+        if (once !== 'false') io.unobserve(el);
+      }else{
+        const once = el.getAttribute('data-reveal-once');
+        if (once === 'false') el.classList.remove('is-visible');
+      }
+    });
+  }, { threshold: 0.12, rootMargin });
+
+  const sections = document.querySelectorAll('.section');
+  sections.forEach(section => {
+    if (section.id === 'hero' || section.closest('.ticker')) return;
+
+    if (section.classList.contains('no-reveal')) return;
+
+    if (EXCLUDE.has(section.tagName)) return;
+
+    const scope = section.querySelector('.container') || section;
+    const children = Array.from(scope.children)
+      .filter(el =>
+        !el.closest('#hero') &&
+        !el.closest('.ticker') &&
+        !el.classList.contains('no-reveal')
+      );
+
+    let baseDelay = 0;
+    const step = 80; //ms
+    children.forEach((el, i) => {
+      if (!el.classList.contains('reveal')) el.classList.add('reveal');
+      el.style.setProperty('--delay', `${baseDelay + i*step}ms`);
+      io.observe(el);
+    });
+  });
+
+  document.querySelectorAll('.reveal').forEach(el => {
+    if (el.closest('#hero') || el.closest('.ticker') || el.classList.contains('no-reveal')) return;
+    io.observe(el);
+  });
+})();
   </script>
 </body>
 </html>
