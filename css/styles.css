@@ -256,8 +256,7 @@ br.mobile-only{ display:none; } @media (max-width:640px){ br.mobile-only{ displa
 .ticker-row--ltr .ticker-track{ animation-name: marquee-ltr; }
 .ticker-row--rtl .ticker-track{ animation-name: marquee-rtl; }
 
-.ticker-row:hover .ticker-track,
-.ticker-row:focus-within .ticker-track{
+.ticker-row:hover .ticker-track{
   animation-play-state: paused;
 }
 
@@ -288,8 +287,7 @@ br.mobile-only{ display:none; } @media (max-width:640px){ br.mobile-only{ displa
 .pill--mint{  background: #23d5ab; color: #000; }
 .pill--white{ background: #fff;    color: #000; }
 
-.ticker-pill:hover,
-.ticker-pill:focus-visible{
+.ticker-pill:hover{
   background: #e73c7e;
   color: #fff;
   outline: none;
@@ -337,7 +335,7 @@ br.mobile-only{ display:none; } @media (max-width:640px){ br.mobile-only{ displa
 
 .news-carousel{ position:relative; display:grid; grid-template-columns:1fr; align-items:center; gap:8px; }
 .news-nav{
-  all:unset; position:absolute; top:40%; transform:translateY(-50%);
+  all:unset; position:absolute; top:35%; transform:translateY(-50%);
   display:grid; place-items:center; font-size:28px; line-height:1; color:#fff; cursor:pointer; user-select:none; padding:6px;
   transition:opacity .2s ease, color .2s ease;
 }
@@ -366,8 +364,8 @@ br.mobile-only{ display:none; } @media (max-width:640px){ br.mobile-only{ displa
 /* FOOTER                                                                     */
 /* ========================================================================== */
 .footer{ margin-top:40px; padding:26px 0; background:rgba(255,255,255,.01); }
-.footer-inner{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
-.brand-mini{ font-weight:700; letter-spacing:.2px; opacity:.85; }
+.footer-inner{ display:flex; align-items:top; justify-content:space-between; gap:12px; }
+.brand-mini{ font-weight:700; letter-spacing:.2px; opacity: .85;}
 .companyinfo{ text-align:right; }
 
 /* ========================================================================== */

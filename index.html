@@ -137,7 +137,7 @@
           <span class="ticker-pill pill--mint"  tabindex="0">LIVE HALL</span>
 
           <span class="ticker-pill pill--white" tabindex="0">FOR EVENTS</span>
-          <span class="ticker-pill pill--mint"  tabindex="0">CONVENTION HALL</span>
+          <span class="ticker-pill pill--mint"  tabindex="0">CONVENTION</span>
 
           <span class="ticker-pill pill--white" tabindex="0">FOR FANDOM</span>
           <span class="ticker-pill pill--mint"  tabindex="0">ARENA</span>
@@ -146,7 +146,7 @@
           <span class="ticker-pill pill--mint"  tabindex="0">LIVE HALL</span>
 
           <span class="ticker-pill pill--white" tabindex="0">FOR EXHIBITIONS</span>
-          <span class="ticker-pill pill--mint"  tabindex="0">CONVENTION HALL</span>
+          <span class="ticker-pill pill--mint"  tabindex="0">CONVENTION</span>
 
           <span class="ticker-pill pill--white" tabindex="0">FOR GLOBAL TOURS</span>
           <span class="ticker-pill pill--mint"  tabindex="0">ARENA</span>
@@ -155,7 +155,7 @@
           <span class="ticker-pill pill--mint"  tabindex="0">LIVE HALL</span>
 
           <span class="ticker-pill pill--white" tabindex="0">FOR CONFERENCES</span>
-          <span class="ticker-pill pill--mint"  tabindex="0">CONVENTION HALL</span>
+          <span class="ticker-pill pill--mint"  tabindex="0">CONVENTION</span>
 
           <span class="ticker-pill pill--white" tabindex="0">FOR FANMEET</span>
           <span class="ticker-pill pill--mint"  tabindex="0">LIVE HALL</span>
@@ -164,7 +164,7 @@
           <span class="ticker-pill pill--mint"  tabindex="0">ARENA</span>
 
           <span class="ticker-pill pill--white" tabindex="0">FOR EXPO</span>
-          <span class="ticker-pill pill--mint"  tabindex="0">CONVENTION HALL</span>
+          <span class="ticker-pill pill--mint"  tabindex="0">CONVENTION</span>
         </div>
       </div>
 
@@ -178,7 +178,7 @@
           <span class="ticker-pill pill--mint"  tabindex="0">LIVE HALL</span>
 
           <span class="ticker-pill pill--white" tabindex="0">FOR EVENTS</span>
-          <span class="ticker-pill pill--mint"  tabindex="0">CONVENTION HALL</span>
+          <span class="ticker-pill pill--mint"  tabindex="0">CONVENTION</span>
 
           <span class="ticker-pill pill--white" tabindex="0">FOR FANDOM</span>
           <span class="ticker-pill pill--mint"  tabindex="0">ARENA</span>
@@ -187,7 +187,7 @@
           <span class="ticker-pill pill--mint"  tabindex="0">LIVE HALL</span>
 
           <span class="ticker-pill pill--white" tabindex="0">FOR EXHIBITIONS</span>
-          <span class="ticker-pill pill--mint"  tabindex="0">CONVENTION HALL</span>
+          <span class="ticker-pill pill--mint"  tabindex="0">CONVENTION</span>
 
           <span class="ticker-pill pill--white" tabindex="0">FOR GLOBAL TOURS</span>
           <span class="ticker-pill pill--mint"  tabindex="0">ARENA</span>
@@ -196,7 +196,7 @@
           <span class="ticker-pill pill--mint"  tabindex="0">LIVE HALL</span>
 
           <span class="ticker-pill pill--white" tabindex="0">FOR CONFERENCES</span>
-          <span class="ticker-pill pill--mint"  tabindex="0">CONVENTION HALL</span>
+          <span class="ticker-pill pill--mint"  tabindex="0">CONVENTION</span>
 
           <span class="ticker-pill pill--white" tabindex="0">FOR FANMEET</span>
           <span class="ticker-pill pill--mint"  tabindex="0">LIVE HALL</span>
@@ -205,7 +205,7 @@
           <span class="ticker-pill pill--mint"  tabindex="0">ARENA</span>
 
           <span class="ticker-pill pill--white" tabindex="0">FOR EXPO</span>
-          <span class="ticker-pill pill--mint"  tabindex="0">CONVENTION HALL</span>
+          <span class="ticker-pill pill--mint"  tabindex="0">CONVENTION</span>
         </div>
       </div>
     </div>
@@ -471,6 +471,14 @@
       const track = row.querySelector('.ticker-track');
       if (!track) return;
       track.innerHTML = track.innerHTML + track.innerHTML;
+    });
+  })();
+
+  (function(){
+    const pills = document.querySelectorAll('#facility-ticker .ticker-pill');
+    pills.forEach(pill => {
+      pill.addEventListener('mousedown', e => e.preventDefault());
+      pill.addEventListener('click', e => e.preventDefault());
     });
   })();
 
