@@ -49,6 +49,13 @@
   --val-content-w: 600px; /* JS에서 계산 */
 }
 
+  @media (max-width: 600px){
+  :root{
+    --fs-body: 1.05rem;
+    --fs-lead: 1.08rem;
+  }
+}
+
 /* ========================================================================== */
 /* FONTS                                                                      */
 /* ========================================================================== */
@@ -143,7 +150,7 @@ p { font-size:var(--fs-body);    line-height:var(--lh-body); margin:0 0 var(--st
 }
 @keyframes gradient-text{ 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
 .message-subtitle{ color:var(--text); }
-@media (max-width:480px){ .message-title{ font-size:2.6rem; line-height:1.15; } }
+@media (max-width:480px){ .message-title{ font-size:2.3rem; line-height:1.15; } }
 br.mobile-only{ display:none; } @media (max-width:640px){ br.mobile-only{ display:inline; } }
 
 /* ========================================================================== */
@@ -156,6 +163,8 @@ br.mobile-only{ display:none; } @media (max-width:640px){ br.mobile-only{ displa
 
 .about-kicker{ text-align:center; }
 .about-text  { text-align:center; margin:0 auto; max-width:840px; }
+
+@media (max-width:640px){ br.desktop-only{display:none;} }
 
 /* ========================================================================== */
 /* CARD                                                                       */
@@ -177,7 +186,7 @@ br.mobile-only{ display:none; } @media (max-width:640px){ br.mobile-only{ displa
 }
 .c-text{
   margin: 0;
-  font-size: clamp(1rem, 1.2vw, 1.05rem);
+  font-size: var(--fs-body);
   line-height: 1.75;
   text-align:left;
 }
@@ -202,7 +211,7 @@ br.mobile-only{ display:none; } @media (max-width:640px){ br.mobile-only{ displa
   transition:background-color .25s ease, color .25s ease;
 }
 @media (hover:hover){
-  .value-card:not(.is-active) .value-viewport:hover{ background:var(--val-hover-bg); } }
+.value-card:not(.is-active) .value-viewport:hover{ background:var(--val-hover-bg); } }
 .value-card.is-active .value-viewport{ background:var(--val-active-bg); color:var(--val-active-fg); }
 
 .value-content{
@@ -302,8 +311,8 @@ br.mobile-only{ display:none; } @media (max-width:640px){ br.mobile-only{ displa
 @media (max-width: 640px){
   .ticker-pill{
     padding: 6px 12px;
-    font-size: clamp(1.25rem, 6.2vw, 1.75rem);
-    height: clamp(40px, 9vw, 64px);
+    font-size: 2rem;
+    height: 60px;
   }
 }
 
@@ -360,8 +369,41 @@ br.mobile-only{ display:none; } @media (max-width:640px){ br.mobile-only{ displa
 .news-card-date{ color:#666; font-size:.9rem; }
 
 @media (max-width:1024px){ .news-track{ grid-auto-columns:calc((100% - 16px) / 2); } }
-@media (max-width:640px){ .news-track{ grid-auto-columns:100%; } .news-carousel{ grid-template-columns:1fr; } .news-nav{ display:none; } }
+@media (max-width:640px){
+  /* 캐러셀 전체 폭 축소: 섹션 전체가 아니라 뉴스 캐러셀만 좁게 */
+  .news-carousel{
+    max-width:88%;
+    margin:0 auto;
+  }
 
+  /* 카드뉴스는 캐러셀 폭(88%) 기준으로 1장씩 차지 */
+  .news-track{
+    grid-auto-columns:100%;
+  }
+
+  /* 모바일에서도 화살표 노출 + 세로 위치 조정 */
+  .news-nav{
+    display:grid;
+    top:50%;                 /* 캐러셀 세로 중앙 기준으로 */
+    transform:translateY(-140%);  /* 살짝 위로 올려서 '이미지 중앙'에 더 가깝게 */
+  }
+
+  /* 화살표를 카드 밖으로 빼내기 */
+  .news-nav.prev{
+    left:-24px;
+  }
+  .news-nav.next{
+    right:-24px;
+  }
+}
+
+@media (max-width: 640px){
+  .about-kicker,
+  .life-kicker,
+  .feature-title{
+    font-size: clamp(1.6rem, 5.4vw, 2rem);
+  }
+}
 /* ========================================================================== */
 /* FOOTER                                                                     */
 /* ========================================================================== */
