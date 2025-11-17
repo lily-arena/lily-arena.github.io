@@ -105,7 +105,9 @@ p { font-size:var(--fs-body);    line-height:var(--lh-body); margin:0 0 var(--st
 
 .section{ padding:100px 0; }
 
+
 /* Intro */
+
 .intro{
   position:relative; min-height:100svh; display:grid; place-items:center; overflow:clip; isolation:isolate;
   background: linear-gradient(-45deg,#ee7752,#e73c7e,#23a6d5,#23d5ab);
